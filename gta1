@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzyczny Teleturniej</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        iframe {
+            width: 100%;
+            height: 80px;
+            border: none;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .scoreboard {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        #end-message {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Muzyczny Teleturniej</h1>
+        <p id="round-info">Runda: Zgadnij tytuł piosenki</p>
+        <iframe id="player" src="" allow="autoplay; encrypted-media"></iframe>
+        <button onclick="nextQuestion()">Następna piosenka</button>
+        <div class="scoreboard">
+            <p id="score">Punkty: 0</p>
+        </div>
+        <div id="end-message"></div>
+    </div>
+
+    <script>
+        // Lista piosenek z linkami do Spotify
+        const songs = [
+            "https://open.spotify.com/embed/track/3n3Ppam7vgaVa1iaRUc9Lp", // Przykładowa piosenka
+            "https://open.spotify.com/embed/track/7ouMYWpwJ422jRcDASZB7P",
+            "https://open.spotify.com/embed/track/2dpaYNEQHiRxtZbfNsse99",
+            "https://open.spotify.com/embed/track/6HabM2PUM519iIxervGWSb",
+            "https://open.spotify.com/embed/track/5QO79kh1waicV47BqGRL3g"
+        ];
+
+        let currentSong = 0;
+        let score = 0;
+
+        // Funkcja ładowania następnej piosenki
+        function nextQuestion() {
+            if (currentSong < songs.length) {
+                document.getElementById("player").src = songs[currentSong];
+                document.getElementById("round-info").textContent = Piosenka ${currentSong + 1} z ${songs.length};
+                currentSong++;
+            } else {
+                endGame();
+            }
+        }
+
+        // Funkcja końca gry
+        function endGame() {
+            document.getElementById("player").style.display = "none";
+            document.querySelector("button").style.display = "none";
+            document.getElementById("end-message").textContent = "Gra zakończona! Dziękujemy za udział!";
+        }
+
+        // Inicjalizacja pierwszego pytania
+        window.onload = nextQuestion;
+    </script>
+</body>
+</html>
